@@ -34,3 +34,45 @@ def fun2(x, n):
         mat = (-1) * (x ** n) / n
         answer += mat
     return answer
+
+def main():
+    """Главная функция программы"""
+    while True:
+        try:
+            com = int(input('\nМеню:'
+                            '\n1) Вычисление первой функции'
+                            '\n2) Вычисление второй функции'
+                            '\n3) Вычисление третьей функции'
+                            '\n4) Выход из программы'
+                            '\nВаша команда: '))
+            if com == 1:
+                try:
+                    while True:
+                        x = float(input("Введите число X (-1<x<=1): "))
+                        if -1 < x <= 1:
+                            n = int(input("Введите кол-во членов разряда от 0 до 1000000: "))
+                            if 1 <= n <= 1000000:
+                                print(f"\nРезультат выполнения первой функции: {fun1(x, n)}")
+                                break
+                except ValueError:
+                    print('Возникла ошибка')
+            elif com == 2:
+                try:
+                    while True:
+                        x = float(input("Введите число X (-1<x<=1): "))
+                        if -1 <= x <= 1:
+                            n = int(input("Введите кол-во членов разряда от 0 до 1000000: "))
+                            if 1 <= n <= 1000000:
+                                print(f"\nРезультат выполнения второй функции: {fun2(x, n)}")
+                                break
+                except ValueError:
+                    print('Возникла ошибка')
+            elif com == 3:
+                pass
+            elif com == 4:
+                print("Выход из программы.")
+                exit()
+            else:
+                print("Введите число из диапазона: 1-4")
+        except ValueError:
+            print('Введите число из диапазона: 1-4')
