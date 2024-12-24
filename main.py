@@ -1,3 +1,5 @@
+import math
+
 def fun1(x, n):
     """
     Вычисляет приближенное ln(1 + x) с использованием ряда Маклорена
@@ -8,13 +10,15 @@ def fun1(x, n):
 
     Возвращаемое значение: Приближённое значение ln(1 + x)
     """
-
+    if not (-1 < x <= 1):
+        raise ValueError("x должно удовлетворять условию -1 < x ≤ 1")
 
     answer = 0
     for n in range(1, n + 1):
         mat = ((-1) ** (n + 1)) * (x ** n) / n
         answer += mat
     return answer
+
 
 def fun2(x, n):
     """
@@ -34,6 +38,24 @@ def fun2(x, n):
         mat = (-1) * (x ** n) / n
         answer += mat
     return answer
+
+def fun3(m, x, n_terms):
+    """
+    Разложение функции (1 - x)^m в ряд Тейлора.
+
+    Аргументы:
+        m - Показатель степени
+        x - Значение переменной x (должно быть в диапазоне -1 < x < 1)
+        n_terms - Количество членов ряда для генерации
+
+    Возвращаемое значение: Сумма разложения
+    """
+    result = 0
+    for n in range(n_terms):
+        coeff = (-1)**n * math.prod([m - k for k in range(n)]) / math.factorial(n)
+        result += coeff * (x ** n)
+    return result
+
 
 def main():
     """Главная функция программы"""
@@ -68,7 +90,19 @@ def main():
                 except ValueError:
                     print('Возникла ошибка')
             elif com == 3:
-                pass
+                try:
+                    while True:
+                        m = float(input("Введите значение m (показатель степени): "))
+                        x = float(input("Введите число X (-1 < x < 1): "))
+                        if -1 < x < 1:
+                            n = int(input("Введите кол-во членов разряда от 1 до 1000000: "))
+                            if 1 <= n <= 1000000:
+                                print(f"\nРезультат выполнения третьей функции: {fun3(m, x, n)}")
+                                break
+                        else:
+                            print("x должно быть в диапазоне -1 < x < 1.")
+                except ValueError:
+                    print("Возникла ошибка")
             elif com == 4:
                 print("Выход из программы.")
                 exit()
@@ -76,3 +110,5 @@ def main():
                 print("Введите число из диапазона: 1-4")
         except ValueError:
             print('Введите число из диапазона: 1-4')
+
+main()
